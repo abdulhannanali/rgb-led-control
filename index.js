@@ -36,7 +36,7 @@ function preload () {
 }
 
 function setup () {
-	socket = io()
+	socket = io() // Socket.IO Websockets url here
 
 	ledCanvas = createCanvas(640, 480)
 	ledCanvas.parent("ledCanvas")

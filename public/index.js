@@ -65,7 +65,7 @@ function draw () {
 	makeistanLogo()
 	dreamCloud(345, 50)
 	ledDraw()
-}
+}	
 
 function mousePressed() {
 	var shareUrl = "https://facebook.com/sharer.php?u=" + window.location.href
@@ -80,7 +80,7 @@ function makeistanLogo () {
 	fill(colorVal)
 	stroke(0)
 	textSize(32)
-	text("Makeistan", 490, 380)
+	text("Makeistan", 490, 470)
 	pop()
 }
 
@@ -161,7 +161,12 @@ function fbShareButton () {
 	fill(255)
 	textSize(64)
 	text("f", 20, 60)
+	pop()
 
+	push()
+	fill(0, 0, 255)
+	text("<=== Fb Share!", 70, 30)
+	text("Share")
 	pop()
 }
 
@@ -187,4 +192,10 @@ function hexToRgba(hex, brightness) {
     if (rgbObj) {
     	return "rgba(" + [rgbObj.r, rgbObj.g, rgbObj.b, scaledBrightness].join(",") + ")"
     }
+}
+
+
+// Arduino's Board info collected using Socket.IO
+function boardInfo () {
+	// TODO
 }

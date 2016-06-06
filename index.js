@@ -10,6 +10,9 @@ var colorPickerInput = $("input#colorPickerInput")
 var brightnessRangeInput = $("input#brightnessRangeInput")
 var logger = $("#logger")
 
+var saveLocalBtn = $("#saveLocalBtn")
+var saveImgurBtn = $("#saveImgurBtn")
+
 var canvasPanel = $("#ledCanvas")
 
 colorPickerInput.on("change", function (event) {
@@ -56,6 +59,43 @@ function setup () {
 		connected = false
 
 		logger.html("Error connecting to Socket.io")
+	})
+
+	saveLocalBtn.on("click", function (event) {
+		saveCanvas(ledCanvas, "rgbVisualization", "png")
+	})
+
+	saveImgurBtn.on("click", function (event) {
+		var imageEndpoint = "https://api.imgur.com/3/upload"
+
+		var dataURL = ledCanvas.elt.toDataURL().split(",")[1]
+
+		if (!dataURL) {
+			return;
+		}
+
+		$.ajax({
+			headers: {
+				Authorization: "Client-ID c4457712525dc5a" 
+			},
+			type: "POST",
+			url: imageEndpoint,
+			dataType: "json",
+			data: {
+				image: dataURL,
+				type: "base64",
+				title: "RGB Led Visualizer Canvas!",
+				description: "See RGB Led Visualizer at https://abdulhannanali.github.io/rgb-led-control"
+			},
+			success: function (data, status, xhr) {
+				if (data && data.success) {
+					window.open(data.data.link)
+				}
+			},
+			error: function (error) {
+				alert("Error occured while uploading to imgur.com")
+			}
+		})
 	})
 }
 
@@ -165,7 +205,7 @@ function fbShareButton () {
 
 	push()
 	fill(0, 0, 255)
-	text("<=== Fb Share!", 70, 30)
+	text("<=== Click to Fb Share!", 70, 30)
 	text("Share")
 	pop()
 }

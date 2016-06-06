@@ -1,0 +1,73 @@
+<html>
+	<head>
+		<title>RGB LED Visualizer!!!</title>
+		<link rel="stylesheet" href="/bower_components/Materialize/dist/css/materialize.min.css">
+		<link rel="stylesheet" href="./colorpicker/css/colorpicker.css">
+	</head>
+	<body>
+		<div class="container">
+			<header class="row">
+				<h1 id="titleHead"></h1>
+			</header>
+			<div class="row">
+				<div class="card card-panel center">
+					<div class="row">
+						<h5>Select the color!</h5>
+						<div class="row center text-center">
+							Select color from color pallette  <input type="color" id="colorPickerInput" value="#0084FF"></div>
+						</div>
+						<div class="row">
+							<p class="range-field">
+								Select brightness
+								<input type="range" id="brightnessRangeInput" min="0" max="255">
+							</p>
+						</div>
+					</div>
+			</div>
+			<div class="row">
+				<div class="center card-panel" id="ledCanvas"></div>
+			</div>
+			<div class="row">
+				<div class="card-panel">
+					<div class="row">
+						<h5>Logger!</h5>
+						<textarea name="" disabled id="logger" cols="30" rows="10"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="/bower_components/Materialize/dist/js/materialize.min.js"></script>
+		<script src="/bower_components/p5.js/lib/p5.min.js"></script>
+		<script src="./colorpicker/js/colorpicker.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function () {
+				var titleHead = $("#titleHead")
+				var textArray = ["RGB", "LED", "Visualizer"]
+				var timeout = 1 * 1000
+				var idx = 0
+
+				setInterval(function () {
+					titleHead.empty()
+					var newTextElems = textArray.map(function (value) {
+						var rgb = "rgba(" + [
+							Math.floor(Math.random() * 255),
+							Math.floor(Math.random() * 255),
+							Math.floor(Math.random() * 255),
+							1
+						].join(",") + ")"
+					
+						return "<span style='color: " + rgb + ";'>"
+								+ value + " </span>" 
+					})
+
+					titleHead.append(newTextElems)
+
+				}, timeout)
+			})
+		</script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.6/socket.io.min.js"></script>
+		<script src="index.js"></script>
+	</body>
+</html>
